@@ -1,0 +1,203 @@
+/* Estilos personalizados para el Bot de Tráfico Web */
+
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0b5ed7 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    font-weight: 600;
+}
+
+.btn {
+    border-radius: 25px;
+    font-weight: 500;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.form-control, .form-select {
+    border-radius: 10px;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.progress {
+    border-radius: 10px;
+    height: 12px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+.bg-opacity-10 {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.display-6 {
+    font-size: 2.5rem;
+}
+
+.display-5 {
+    font-size: 2.8rem;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.btn-primary {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .display-5 {
+        font-size: 2.2rem;
+    }
+    
+    .display-6 {
+        font-size: 2rem;
+    }
+    
+    header {
+        text-align: center;
+    }
+    
+    .text-md-end {
+        text-align: center !important;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .display-5 {
+        font-size: 1.8rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+}
+
+/* Estilos para el log de actividades */
+#activityLog p {
+    margin-bottom: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+}
+
+.log-entry {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* Colores para diferentes tipos de log */
+.log-info { color: #6cf; }
+.log-success { color: #6c6; }
+.log-warning { color: #cc6; }
+.log-error { color: #f66; }
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Estados de botones */
+.btn:disabled {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Form validation */
+.form-control.is-invalid {
+    border-color: var(--danger-color);
+}
+
+.form-control.is-valid {
+    border-color: var(--success-color);
+}
+
+/* Progress bar colors */
+.progress-bar.bg-success {
+    background-color: var(--success-color) !important;
+}
+
+.progress-bar.bg-warning {
+    background-color: var(--warning-color) !important;
+}
+
+.progress-bar.bg-danger {
+    background-color: var(--danger-color) !important;
+}
