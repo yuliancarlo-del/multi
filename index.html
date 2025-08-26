@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot de Tráfico Web - GitHub Pages</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid min-vh-100 d-flex flex-column">
+        <!-- Header -->
+        <header class="bg-primary text-white py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="display-5 fw-bold mb-2">🤖 Bot de Tráfico Web</h1>
+                        <p class="lead mb-0">Simulador de tráfico web para pruebas y análisis</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <button class="btn btn-light" onclick="showManual()">📖 Manual</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow-1 py-4">
+            <div class="container">
+                <div class="row">
+                    <!-- Panel de Control -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header bg-success text-white">
+                                <h4 class="mb-0">🎛️ Panel de Control</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="botForm">
+                                    <div class="mb-3">
+                                        <label for="targetUrl" class="form-label">URL Objetivo:</label>
+                                        <input type="url" class="form-control" id="targetUrl" 
+                                               placeholder="https://ejemplo.com" required>
+                                        <div class="form-text">Ingresa la URL que deseas simular tráfico</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="minTime" class="form-label">Tiempo Mínimo (s):</label>
+                                                <input type="number" class="form-control" id="minTime" 
+                                                       value="30" min="10" max="300" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="maxTime" class="form-label">Tiempo Máximo (s):</label>
+                                                <input type="number" class="form-control" id="maxTime" 
+                                                       value="120" min="30" max="600" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="concurrentVisitors" class="form-label">Visitantes Concurrentes:</label>
+                                        <input type="number" class="form-control" id="concurrentVisitors" 
+                                               value="3" min="1" max="10" required>
+                                        <div class="form-text">Número de visitantes simultáneos</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="trafficType" class="form-label">Tipo de Tráfico:</label>
+                                        <select class="form-select" id="trafficType">
+                                            <option value="direct">Directo</option>
+                                            <option value="organic">Orgánico (Google)</option>
+                                            <option value="mixed">Mixto</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg" id="startBtn">
+                                            🚀 Iniciar Simulación
+                                        </button>
+                                        <button type="button" class="btn btn-danger" id="stopBtn" disabled>
+                                            ⏹️ Detener Simulación
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Estadísticas -->
+                    <div class="col-lg-6">
+                        <div class="card shadow">
+                            <div class="card-header bg-info text-white">
+                                <h4 class="mb-0">📊 Estadísticas en Tiempo Real</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row text-center mb-4">
+                                    <div class="col-6">
+                                        <div class="bg-primary bg-opacity-10 rounded p-3">
+                                            <h2 class="display-6 fw-bold text-primary" id="visitCount">0</h2>
+                                            <p class="mb-0">Visitas Completadas</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="bg-success bg-opacity-10 rounded p-3">
+                                            <h2 class="display-6 fw-bold text-success" id="activeVisitors">0</h2>
+                                            <p class="mb-0">Visitantes Activos</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Progreso de Simulación</label>
+                                    <div class="progress">
+                                        <div class="progress-bar" id="simulationProgress" 
+                                             role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Tiempo Promedio por Visita</label>
+                                    <div class="bg-light rounded p-2 text-center">
+                                        <span class="fs-4 fw-bold" id="avgTime">0</span> segundos
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <h5>📝 Últimas Actividades</h5>
+                                    <div id="activityLog" class="bg-dark text-white p-3 rounded" style="height: 200px; overflow-y: auto; font-size: 0.9em;">
+                                        <p class="mb-1">Sistema listo para iniciar simulación...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-3 mt-auto">
+            <div class="container text-center">
+                <p class="mb-0">Bot de Tráfico Web v1.0 | Para uso educativo y pruebas</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Manual -->
+    <div class="modal fade" id="manualModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">📖 Manual de Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>🚀 Cómo usar el Bot de Tráfico</h4>
+                    <ol>
+                        <li><strong>Configura los parámetros:</strong> Ingresa la URL objetivo y ajusta los tiempos</li>
+                        <li><strong>Selecciona el tipo de tráfico:</strong> Directo u orgánico</li>
+                        <li><strong>Inicia la simulación:</strong> Haz clic en "Iniciar Simulación"</li>
+                        <li><strong>Monitorea en tiempo real:</strong> Observa las estadísticas actualizadas</li>
+                    </ol>
+
+                    <h4>⚙️ Funciones Avanzadas</h4>
+                    <ul>
+                        <li><strong>Agentes de usuario personalizados</strong> - Simula diferentes navegadores</li>
+                        <li><strong>Desplazamiento natural</strong> - Simula lectura real</li>
+                        <li><strong>Visitas internas</strong> - Navega por enlaces del sitio</li>
+                        <li><strong>Cookies personalizadas</strong> - Aumenta la naturalidad</li>
+                        <li><strong>Aleatoriedad total</strong> - Cada visita es única</li>
+                    </ul>
+
+                    <div class="alert alert-warning">
+                        <strong>⚠️ Importante:</strong> Esta herramienta es solo para pruebas y análisis. 
+                        No debe usarse para actividades maliciosas o que violen los Términos de Servicio de sitios web.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
